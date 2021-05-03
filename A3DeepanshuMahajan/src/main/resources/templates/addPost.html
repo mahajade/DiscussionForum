@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+	<header class="header"> 
+		<a href="#" th:id="about">About Us</a>&nbsp;&nbsp;
+		<a href="#" th:id="image">Images</a>
+		<span th:id="logout" sec:authorize="isAuthenticated()">
+				<form method="post" th:action="@{/logout}">
+					<input type="submit" value="Log Out">
+				</form>	
+			</span>
+	</header>
+	<h1>Employee Discussion Forum</h1>
+	<h3>Add New Post</h3>
+	<div class="loginForm">
+		<form th:method="post" th:action="@{/addPost}" th:object="${post}">
+			<input type="hidden" th:field="*{username}">
+			<input type="hidden" th:field="*{date}">
+			<input type="hidden" th:field="*{time}">
+			<table>
+				<tr>
+					<td><label>Post</label></td>
+					<td><textarea th:field="*{message}" cols="25" rows="5"></textarea></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center"><input type="submit" value="Post"></td>
+				</tr>
+			</table>
+		</form><br>
+		<a th:href="@{/home}">Back to home Page</a>
+	</div>
+</body>
+</html>

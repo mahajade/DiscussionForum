@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+	<header class="header">
+		<a href="#" th:id="about">About Us</a>&nbsp;&nbsp; <a href="#"
+			th:id="image">Images</a> <span th:id="logout"
+			sec:authorize="isAuthenticated()">
+			<form method="post" th:action="@{/logout}">
+				<input type="submit" value="Log Out">
+			</form>
+		</span>
+	</header>
+	<h1>Employee Discussion Forum</h1>
+	<h2>Discussions</h2>
+	<h3>Replies to the post</h3>
+
+	<div class="posts">
+		<div th:object="${list}">
+			<div th:text="*{message}" id="message1"></div>
+
+			<span id="replies">Posted By <span th:text="*{username}"></span> on <span th:text="*{date}"></span>&nbsp;<span
+				th:text="*{time}"></span></span>
+			<div th:if="${replies != null}" th:each="r : ${replies}">
+
+				<div th:text="${r.reply}" id="message1"></div>
+				<span id="details"><span th:text="${r.username}"></span> replied on <span th:text="${r.date}"></span>&nbsp;
+				<span th:text="${r.time}"></span></span>
+			</div>
+			<div id="alert" th:if="${msg!=null}" th:text="${msg}"><br>No Replies Yet!</div>
+			<form th:method="get" th:action="@{/home}">
+				<input type="submit" value="Back to discussions">
+			</form>
+			<hr>
+		</div>
+	</div>
+</body>
+</html>

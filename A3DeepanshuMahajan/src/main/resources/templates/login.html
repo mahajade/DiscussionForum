@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+	<header class="header"> 
+		<a style="right:44%;" href="#" th:id="about">About Us</a>&nbsp;&nbsp;
+		<a style="right:44%;" href="#" th:id="image">Images</a>
+		<span th:id="logout" sec:authorize="isAuthenticated()"><a id="log" th:href="@{/logout}">Log Out</a></span>
+	</header>
+	<h1>Employee Discussion Forum</h1>
+	<h3>Log in Into your account</h3>
+	<div th:class="loginForm">
+		<div id="alert" th:if="${param.logout}">
+			<h4>You have logged out</h4>
+		</div>
+		<div id="alert" th:if="${param.error}">
+			<h4>Invalid Username or Password</h4>
+		</div>
+		<div id="alert" th:text="${session.msg}"></div>
+		<form th:method="post" th:action="@{/login}">
+		<table>
+			<tr>
+			<td><label for="username">Username</label></td> 
+			<td><input type="text" th:name="username"></td>
+			</tr>
+			<tr><td></td></tr>
+			<tr>
+			<td><label for="password">Password</label></td>
+			<td><input type="password" th:name="password"></td> 	
+			</tr>
+			<tr><td></td></tr>
+			<tr>
+			<td colspan="2" align="center"><input type="submit" th:name="login-submit" value="Login"></td>
+			</tr>
+		</table>
+		</form><br>
+		<a th:href="@{/addEmployee}" th:id="new">Create New Account</a>
+	</div>
+</body>
+</html>

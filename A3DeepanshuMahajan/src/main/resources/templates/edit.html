@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+	<header class="header">
+		<a href="#" th:id="about">About Us</a>&nbsp;&nbsp; <a href="#"
+			th:id="image">Images</a> 
+		<span th:id="logout" sec:authorize="isAuthenticated()">
+				<form method="post" th:action="@{/logout}">
+					<input type="submit" value="Log Out">
+				</form>	
+			</span>		
+	</header>
+	<h1>Employee Discussion Form</h1>
+	<h2>Edit Your Response</h2>
+	<div class="loginForm">
+		<form th:action="@{/edit}" th:method="post" th:object="${post}">
+			<input type="hidden" th:field="*{id}"> <input type="hidden"
+				th:field="*{username}"> <input type="hidden"
+				th:field="*{date}"> <input type="hidden" th:field="*{time}">
+			<table>
+				<tr>
+					<td><label>Post</label></td>
+					<td><textarea th:field="*{message}" cols="25" rows="5"></textarea></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center"><input type="submit"
+						value="Update Post"></td>
+				</tr>
+			</table>
+		</form>
+	</div><br>	
+	<a th:href="@{/}">Back to home Page</a>
+</body>
+</html>

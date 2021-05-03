@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+	<header class="header">
+		<a href="#" th:id="about">About Us</a>&nbsp;&nbsp; <a href="#"
+			th:id="image">Images</a> 
+			<span th:id="logout" sec:authorize="isAuthenticated()">
+				<form method="post" th:action="@{/logout}">
+					<input type="submit" value="Log Out">
+				</form>	
+			</span>
+	</header>
+	<h1>Employee Discussion Forum</h1>
+	<h3>Add A Reply</h3>
+	<div class="loginForm">
+		<form th:method="post" th:action="@{/addReply}" th:object="${reply}">
+			<input type="hidden" th:field="*{id}"> <input type="hidden"
+				th:field="*{username}"> <input type="hidden"
+				th:field="*{date}"> <input type="hidden" th:field="*{time}">
+			<table>
+				<tr>
+					<td><label>Reply</label></td>
+					<td><textarea th:field="*{reply}" cols="25" rows="5"></textarea></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center"><input type="submit"
+						value="Add Reply"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<br>
+	<a th:href="@{/home}">Back to home page</a>
+</body>
+</html>

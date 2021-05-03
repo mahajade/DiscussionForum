@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+	<header class="header">
+		<a href="#" th:id="about">About Us</a>&nbsp;&nbsp; <a href="#"
+			th:id="image">Images</a> 
+			<span th:id="logout" sec:authorize="isAuthenticated()">
+				<form method="post" th:action="@{/logout}">
+					<input type="submit" value="Log Out">
+				</form>	
+			</span>
+	</header>
+	<h1>Employee Discussion Forum</h1>
+	<h3>Create New Employee</h3>
+	<div th:class="loginForm">
+		<div id="alert" th:text="${session.exists}"></div>
+		<form th:method="post" th:action="@{/addEmployee}" th:object="${employee}">
+			<table>	
+				<tr>
+					<td><label>Username</label></td>
+					<td><input type="text" th:field="*{username}"></td>
+				</tr>
+				<tr><td></td></tr>
+				<tr>
+					<td><label>Password</label>
+					<td><input type="password" th:field="*{password}"></td>
+				</tr>
+				<tr><td></td></tr>
+				<tr>
+					<td colspan="2" align="center"><input type="submit" value="Create"></td>
+				</tr>
+			</table>
+		</form>
+	</div><br>
+	<a th:href="@{/login}">Back to login page</a>
+</body>
+</html>

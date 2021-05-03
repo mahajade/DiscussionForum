@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+	<header class="header">
+		<a href="#" th:id="about">About Us</a>&nbsp;&nbsp; <a href="#"
+			th:id="image">Images</a> 
+			<span th:id="logout" sec:authorize="isAuthenticated()">
+				<form method="post" th:action="@{/logout}">
+					<input type="submit" value="Log Out">
+				</form>	
+			</span>
+	</header>
+	<h1>Employee Discussion Forum</h1>
+	<h2>Discussions</h2>
+	<h3 th:text="|Welcome ${username}|"></h3>
+	<div class="posts">
+		<form th:action="@{/addPost}" th:method="get">
+			<input type="submit" value="Start New Thread">
+		</form>
+		<div>
+			<div th:if="${list!=null}" th:each="p : ${list}">
+				
+				<div id="message1" th:text="${p.message}"></div>
+				<span id="details">&nbsp;&nbsp;Posted By <span id="username" th:text="${p.username}"></span> 
+				on <span id="date" th:text="${p.date}"></span>&nbsp;<span id="time" th:text="${p.time}"></span></span>
+				
+				<div class="flex-container">
+				
+				<form th:method="get" th:action="@{/addReply/{id}(id=${p.id})}">
+					<input id="reply" type="submit" value="Reply">
+				</form>
+				
+				<form th:if="${p.username}==${username}" th:method="get"
+					th:action="@{/delete/{id}(id=${p.id})}">
+					<input id="delete" type="submit" value="Delete Post">
+				</form>
+				<form th:if="${p.username}==${username}" th:method="get"
+					th:action="@{/edit/{id}(id=${p.id})}">
+					<input id="edit" type="submit" value="Edit Post">
+				</form>
+				<form th:method="get" th:action="@{/getReplies/{id}(id=${p.id})}">
+					<input th:id="repButton" type="submit" value="Show Replies">
+				</form>
+				</div>
+				<span th:id="'reply'+${p.id}"> </span>
+				<hr>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
